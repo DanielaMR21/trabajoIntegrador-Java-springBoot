@@ -11,18 +11,18 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
+@Table(name = "domicilios")
 public class Domicilio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String calle;
-    private Integer numero;
+    private String numero;
     private String localidad;
     private String provincia;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 }

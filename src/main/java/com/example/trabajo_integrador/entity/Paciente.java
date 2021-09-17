@@ -13,7 +13,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter()
 @Table(name = "pacientes")
 public class Paciente {
 
@@ -24,8 +23,8 @@ public class Paciente {
     private String apellido;
     private String dni;
 
-    @OneToMany(mappedBy = "pacientes", fetch = FetchType.LAZY)
-    private Set<Domicilio> domicilio;
+    @OneToOne(mappedBy = "pacientes", fetch = FetchType.LAZY)
+    private Domicilio domicilio;
     private LocalDate fechaDeAlta;
 
 }
