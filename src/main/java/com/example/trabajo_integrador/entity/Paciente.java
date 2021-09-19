@@ -1,9 +1,7 @@
 package com.example.trabajo_integrador.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,17 +11,20 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
+@Builder
 @Table(name = "pacientes")
-public class Paciente {
+public class Paciente{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String apellido;
     private String dni;
 
-    @OneToOne(mappedBy = "pacientes", fetch = FetchType.LAZY)
+    @OneToOne(cascade =CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Domicilio domicilio;
     private LocalDate fechaDeAlta;
 

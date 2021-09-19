@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface OdontologoService {
 
-    OdontologoCreateDto registrar(RequestCreateOdontologo requestOdontologo);
-    OdontologoCreateDto actualizar(Long id, RequestCreateOdontologo requestOdontologo);
+    OdontologoCreateDto registrar(RequestCreateOdontologo request);
+    OdontologoCreateDto actualizar(Long id, RequestCreateOdontologo request);
     OdontologoCreateDto buscarPorId(Long id);
     List<OdontologoCreateDto> listar();
 
