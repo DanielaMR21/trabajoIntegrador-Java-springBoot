@@ -25,7 +25,7 @@ public class OdontologoServiceImpl implements OdontologoService{
         Odontologo guardarOdontologo = odontologoRepository.save(Odontologo.builder().nombre(requestOdontologo.getNombre())
                 .apellido(requestOdontologo.getApellido())
                 .matricula(requestOdontologo.getMatricula()).build());
-        return new OdontologoCreateDto(guardarOdontologo.getNombre(),guardarOdontologo.getApellido(),guardarOdontologo.getMatricula());
+        return new OdontologoCreateDto(guardarOdontologo.getId(), guardarOdontologo.getNombre(),guardarOdontologo.getApellido(),guardarOdontologo.getMatricula());
     }
 
     @Override
@@ -36,21 +36,21 @@ public class OdontologoServiceImpl implements OdontologoService{
         odontologoDB.setApellido(requestOdontologo.getApellido());
         odontologoDB.setMatricula(requestOdontologo.getMatricula());
         odontologoRepository.save(odontologoDB);
-        return new OdontologoCreateDto(odontologoDB.getNombre(),odontologoDB.getApellido(),odontologoDB.getMatricula());
+        return new OdontologoCreateDto(odontologoDB.getId(), odontologoDB.getNombre(),odontologoDB.getApellido(),odontologoDB.getMatricula());
     }
 
     @Override
     @Transactional(readOnly = true)
     public OdontologoCreateDto buscarPorId(Long id) {
         Odontologo odontologo = odontologoRepository.findById(id).orElseThrow(()->new RuntimeException("Ocurrio un error al buscar un odontologo"));
-        return new OdontologoCreateDto(odontologo.getNombre(),odontologo.getApellido(),odontologo.getMatricula());
+        return new OdontologoCreateDto(odontologo.getId(), odontologo.getNombre(),odontologo.getApellido(),odontologo.getMatricula());
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<OdontologoCreateDto> listar() {
         return odontologoRepository.findAll().stream()
-                .map(odontologo -> new OdontologoCreateDto(odontologo.getNombre(), odontologo.getApellido(), odontologo.getMatricula()))
+                .map(odontologo -> new OdontologoCreateDto(odontologo.getId(), odontologo.getNombre(), odontologo.getApellido(), odontologo.getMatricula()))
                 .collect(Collectors.toList());
     }
 }

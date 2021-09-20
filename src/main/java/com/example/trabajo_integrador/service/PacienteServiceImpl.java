@@ -5,8 +5,10 @@ import com.example.trabajo_integrador.controller.request.RequestCreatePaciente;
 import com.example.trabajo_integrador.entity.Paciente;
 import com.example.trabajo_integrador.repository.PacienteRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PacienteServiceImpl implements PacienteService{
@@ -18,6 +20,7 @@ public class PacienteServiceImpl implements PacienteService{
     }
 
     @Override
+    @Transactional
     public PacienteCreateDto registrar(RequestCreatePaciente request) {
         Paciente guaradarPaciente = pacienteRepository.save(Paciente.builder().nombre(request.getNombre())
                 .apellido(request.getApellido())
@@ -29,17 +32,30 @@ public class PacienteServiceImpl implements PacienteService{
     }
 
     @Override
+    @Transactional
     public PacienteCreateDto actualizar(Long id, RequestCreatePaciente request) {
-        return null;
+        Paciente pacienteDB = pacienteRepository.findById(id).orElseThrow(()->new RuntimeException("Ocurrio un error al actualizar paciente"));
+        pacienteDB.setNombre(request.getNombre());
+        pacienteDB.setApellido(request.getApellido());
+        pacienteDB.setDni(request.getDni());
+        pacienteDB.setDomicilio(request.getDomicilio());
+        pacienteDB.setFechaDeAlta(request.getFechaDeAlta());
+        pacienteRepository.save(pacienteDB);
+        return new PacienteCreateDto(pacienteDB.getNombre(),pacienteDB.getApellido(),pacienteDB.getDni(),pacienteDB.getDomicilio(),pacienteDB.getFechaDeAlta());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PacienteCreateDto buscarPorId(Long id) {
-        return null;
+        Paciente paciente = pacienteRepository.findById(id).orElseThrow(()->new RuntimeException("No se encontro el paciente"));
+        return new PacienteCreateDto(paciente.getNombre(),paciente.getApellido(),paciente.getDni(),paciente.getDomicilio(),paciente.getFechaDeAlta());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PacienteCreateDto> listar() {
-        return null;
+        return pacienteRepository.findAll().stream()
+                .map(paciente -> new PacienteCreateDto(paciente.getNombre(),paciente.getApellido(),paciente.getApellido(),paciente.getDomicilio(),paciente.getFechaDeAlta()))
+                .collect(Collectors.toList());
     }
 }

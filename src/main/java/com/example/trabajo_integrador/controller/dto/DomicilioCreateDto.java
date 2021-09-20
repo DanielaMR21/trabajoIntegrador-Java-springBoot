@@ -10,6 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DomicilioCreateDto implements Serializable {
+
     private String calle;
     private String numero;
     private String localidad;

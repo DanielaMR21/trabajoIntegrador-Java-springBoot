@@ -11,7 +11,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class OdontologoCreateDto implements Serializable {
 
-    private String apellido;
+    private Long id;
     private String nombre;
+    private String apellido;
     private String matricula;
 }

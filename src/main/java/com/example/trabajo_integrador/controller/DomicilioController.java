@@ -12,7 +12,7 @@ import javax.servlet.http.PushBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/domicilio")
+@RequestMapping("/domicilios")
 public class DomicilioController {
 
     private final DomicilioService domicilioService;

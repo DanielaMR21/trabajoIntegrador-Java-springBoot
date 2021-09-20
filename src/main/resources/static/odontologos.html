@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Consultorio Odontológico</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="/js/post_odontologo.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/odontologo.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/update_odontologo.js"></script>
+    <script type="text/javascript" src="/js/delete_odontologo.js"></script>
+    <script type="text/javascript" src="/js/get_odontologo.js"></script>
+</head>
+<body>
+<header>
+    <h1>Consultorio Odontológico</h1>
+    <nav>
+        <ul>
+            <li>
+                <a href="/odontologos.html">Administración odontólogos</a>
+            </li>
+            <li>
+                <a href="#">Administración de pacientes</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="fondo">
+        <div class="container ">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="/alta-odontologos.html">Agregar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/odontologos">Ver agregados</a>
+                </li>
+            </ul>
+            <div id="div_odontologo_table">
+                <h2>Odontólogos</h2>
+                <div class="row col-md-6 table-responsive">
+                    <table id="odontologoTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id:</th>
+                                <th>Nombre:</th>
+                                <th>Apellido:</th>
+                                <th>Matrícula:</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+</main>
+</body>
+<footer>
+    <h4>Consultorio Odontológico - Daniela Morales</h4>
+</footer>
+</html>

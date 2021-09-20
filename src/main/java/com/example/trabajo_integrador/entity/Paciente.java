@@ -5,7 +5,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -23,7 +22,7 @@ public class Paciente{
     private String apellido;
     private String dni;
 
-    @OneToOne(cascade =CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Domicilio domicilio;
     private LocalDate fechaDeAlta;

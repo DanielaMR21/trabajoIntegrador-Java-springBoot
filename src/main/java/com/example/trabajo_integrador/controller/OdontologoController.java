@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/odontologo")
+@RequestMapping("/odontologos")
 public class OdontologoController {
 
    private final OdontologoService odontologoService;

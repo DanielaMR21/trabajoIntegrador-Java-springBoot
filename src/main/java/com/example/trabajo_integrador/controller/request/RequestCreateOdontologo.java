@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class RequestCreateOdontologo implements Serializable {
-    private String apellido;
     private String nombre;
+    private String apellido;
     private String matricula;
 }
