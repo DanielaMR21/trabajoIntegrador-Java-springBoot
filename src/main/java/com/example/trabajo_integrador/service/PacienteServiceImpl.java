@@ -28,7 +28,7 @@ public class PacienteServiceImpl implements PacienteService{
                 .domicilio(request.getDomicilio())
                 .fechaDeAlta(request.getFechaDeAlta())
                 .build());
-        return new PacienteCreateDto(guaradarPaciente.getNombre(),guaradarPaciente.getApellido(),guaradarPaciente.getDni(),guaradarPaciente.getDomicilio(),guaradarPaciente.getFechaDeAlta());
+        return new PacienteCreateDto(guaradarPaciente.getId(), guaradarPaciente.getNombre(),guaradarPaciente.getApellido(),guaradarPaciente.getDni(),guaradarPaciente.getDomicilio(),guaradarPaciente.getFechaDeAlta());
     }
 
     @Override
@@ -41,21 +41,21 @@ public class PacienteServiceImpl implements PacienteService{
         pacienteDB.setDomicilio(request.getDomicilio());
         pacienteDB.setFechaDeAlta(request.getFechaDeAlta());
         pacienteRepository.save(pacienteDB);
-        return new PacienteCreateDto(pacienteDB.getNombre(),pacienteDB.getApellido(),pacienteDB.getDni(),pacienteDB.getDomicilio(),pacienteDB.getFechaDeAlta());
+        return new PacienteCreateDto(pacienteDB.getId(), pacienteDB.getNombre(),pacienteDB.getApellido(),pacienteDB.getDni(),pacienteDB.getDomicilio(),pacienteDB.getFechaDeAlta());
     }
 
     @Override
     @Transactional(readOnly = true)
     public PacienteCreateDto buscarPorId(Long id) {
         Paciente paciente = pacienteRepository.findById(id).orElseThrow(()->new RuntimeException("No se encontro el paciente"));
-        return new PacienteCreateDto(paciente.getNombre(),paciente.getApellido(),paciente.getDni(),paciente.getDomicilio(),paciente.getFechaDeAlta());
+        return new PacienteCreateDto(paciente.getId(), paciente.getNombre(),paciente.getApellido(),paciente.getDni(),paciente.getDomicilio(),paciente.getFechaDeAlta());
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<PacienteCreateDto> listar() {
         return pacienteRepository.findAll().stream()
-                .map(paciente -> new PacienteCreateDto(paciente.getNombre(),paciente.getApellido(),paciente.getApellido(),paciente.getDomicilio(),paciente.getFechaDeAlta()))
+                .map(paciente -> new PacienteCreateDto(paciente.getId(), paciente.getNombre(),paciente.getApellido(),paciente.getApellido(),paciente.getDomicilio(),paciente.getFechaDeAlta()))
                 .collect(Collectors.toList());
     }
 }

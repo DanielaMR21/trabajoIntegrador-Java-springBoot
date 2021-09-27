@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 public class Paciente{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String nombre;
     private String apellido;
@@ -26,5 +27,10 @@ public class Paciente{
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Domicilio domicilio;
     private LocalDate fechaDeAlta;
+
+    @OneToMany(mappedBy = "paciente")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Set<Turno> turnos;
+
 
 }

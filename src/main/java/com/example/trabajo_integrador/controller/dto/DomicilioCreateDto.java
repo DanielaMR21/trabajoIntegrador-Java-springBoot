@@ -11,6 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class DomicilioCreateDto implements Serializable {
 
+    private Long id;
     private String calle;
     private String numero;
     private String localidad;

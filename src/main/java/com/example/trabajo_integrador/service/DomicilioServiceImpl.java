@@ -28,7 +28,7 @@ public class DomicilioServiceImpl implements DomicilioService{
                 .numero(request.getNumero())
                 .localidad(request.getLocalidad())
                 .provincia(request.getProvincia()).build());
-        return new DomicilioCreateDto(guardarDomicilio.getCalle(),guardarDomicilio.getNumero(),guardarDomicilio.getLocalidad(),guardarDomicilio.getProvincia());
+        return new DomicilioCreateDto(guardarDomicilio.getId(), guardarDomicilio.getCalle(),guardarDomicilio.getNumero(),guardarDomicilio.getLocalidad(),guardarDomicilio.getProvincia());
     }
 
     @Override
@@ -40,7 +40,7 @@ public class DomicilioServiceImpl implements DomicilioService{
         domicilioDB.setLocalidad(request.getLocalidad());
         domicilioDB.setProvincia(request.getProvincia());
         domicilioRepository.save(domicilioDB);
-        return new DomicilioCreateDto(domicilioDB.getCalle(),domicilioDB.getNumero(),domicilioDB.getLocalidad(),domicilioDB.getProvincia());
+        return new DomicilioCreateDto(domicilioDB.getId(), domicilioDB.getCalle(),domicilioDB.getNumero(),domicilioDB.getLocalidad(),domicilioDB.getProvincia());
 
     }
 
@@ -48,7 +48,7 @@ public class DomicilioServiceImpl implements DomicilioService{
     @Transactional(readOnly = true)
     public List<DomicilioCreateDto> listar() {
          return domicilioRepository.findAll().stream()
-                 .map(domicilio -> new DomicilioCreateDto(domicilio.getCalle(),domicilio.getNumero(),domicilio.getLocalidad(),domicilio.getProvincia()))
+                 .map(domicilio -> new DomicilioCreateDto(domicilio.getId(), domicilio.getCalle(),domicilio.getNumero(),domicilio.getLocalidad(),domicilio.getProvincia()))
                  .collect(Collectors.toList());
     }
 
@@ -56,7 +56,7 @@ public class DomicilioServiceImpl implements DomicilioService{
     @Transactional(readOnly = true)
     public DomicilioCreateDto buscarPorId(Long id) {
         Domicilio domicilioDB = domicilioRepository.findById(id).orElseThrow(()->new RuntimeException("Error al buscar un domicilio"));
-        return new DomicilioCreateDto(domicilioDB.getCalle(),domicilioDB.getNumero(),domicilioDB.getLocalidad(),domicilioDB.getProvincia());
+        return new DomicilioCreateDto(domicilioDB.getId(), domicilioDB.getCalle(),domicilioDB.getNumero(),domicilioDB.getLocalidad(),domicilioDB.getProvincia());
 
     }
 

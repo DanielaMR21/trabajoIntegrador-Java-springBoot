@@ -14,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PacienteCreateDto implements Serializable {
+    private Long id;
     private String nombre;
     private String apellido;
     private String dni;
