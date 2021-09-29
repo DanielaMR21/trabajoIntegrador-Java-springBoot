@@ -3,7 +3,9 @@ package com.example.trabajo_integrador.service;
 import com.example.trabajo_integrador.controller.dto.OdontologoCreateDto;
 import com.example.trabajo_integrador.controller.request.RequestCreateOdontologo;
 import com.example.trabajo_integrador.entity.Odontologo;
+import com.example.trabajo_integrador.exception.CustomBaseException;
 import com.example.trabajo_integrador.repository.OdontologoRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +33,10 @@ public class OdontologoServiceImpl implements OdontologoService{
     @Override
     @Transactional
     public OdontologoCreateDto actualizar(Long id, RequestCreateOdontologo requestOdontologo) {
-        Odontologo odontologoDB = odontologoRepository.findById(id).orElseThrow(()->new RuntimeException("Ocurrio un error al actualizar el odontologo"));
+        Odontologo odontologoDB = odontologoRepository.findById(id).orElseThrow(() ->
+        {
+            throw new CustomBaseException("Odontologo no encontrado, por favor revise.", HttpStatus.BAD_REQUEST.value());
+        });
         odontologoDB.setNombre(requestOdontologo.getNombre());
         odontologoDB.setApellido(requestOdontologo.getApellido());
         odontologoDB.setMatricula(requestOdontologo.getMatricula());
@@ -42,7 +47,11 @@ public class OdontologoServiceImpl implements OdontologoService{
     @Override
     @Transactional(readOnly = true)
     public OdontologoCreateDto buscarPorId(Long id) {
-        Odontologo odontologo = odontologoRepository.findById(id).orElseThrow(()->new RuntimeException("Ocurrio un error al buscar un odontologo"));
+        Odontologo odontologo = odontologoRepository.findById(id).orElseThrow(()->
+                {
+                    throw new CustomBaseException("Odontologo no encontrado, por favor revise.", HttpStatus.BAD_REQUEST.value());
+                });
+
         return new OdontologoCreateDto(odontologo.getId(), odontologo.getNombre(),odontologo.getApellido(),odontologo.getMatricula());
     }
 

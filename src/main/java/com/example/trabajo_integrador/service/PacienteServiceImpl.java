@@ -3,7 +3,9 @@ package com.example.trabajo_integrador.service;
 import com.example.trabajo_integrador.controller.dto.PacienteCreateDto;
 import com.example.trabajo_integrador.controller.request.RequestCreatePaciente;
 import com.example.trabajo_integrador.entity.Paciente;
+import com.example.trabajo_integrador.exception.CustomBaseException;
 import com.example.trabajo_integrador.repository.PacienteRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +36,10 @@ public class PacienteServiceImpl implements PacienteService{
     @Override
     @Transactional
     public PacienteCreateDto actualizar(Long id, RequestCreatePaciente request) {
-        Paciente pacienteDB = pacienteRepository.findById(id).orElseThrow(()->new RuntimeException("Ocurrio un error al actualizar paciente"));
+        Paciente pacienteDB = pacienteRepository.findById(id).orElseThrow(() ->
+        {
+            throw new CustomBaseException("Paciente no encontrado, por favor revise.", HttpStatus.BAD_REQUEST.value());
+        });
         pacienteDB.setNombre(request.getNombre());
         pacienteDB.setApellido(request.getApellido());
         pacienteDB.setDni(request.getDni());
@@ -47,7 +52,10 @@ public class PacienteServiceImpl implements PacienteService{
     @Override
     @Transactional(readOnly = true)
     public PacienteCreateDto buscarPorId(Long id) {
-        Paciente paciente = pacienteRepository.findById(id).orElseThrow(()->new RuntimeException("No se encontro el paciente"));
+        Paciente paciente = pacienteRepository.findById(id).orElseThrow(() ->
+        {
+            throw new CustomBaseException("Paciente no encontrado, por favor revise.", HttpStatus.BAD_REQUEST.value());
+        });
         return new PacienteCreateDto(paciente.getId(), paciente.getNombre(),paciente.getApellido(),paciente.getDni(),paciente.getDomicilio(),paciente.getFechaDeAlta());
     }
 

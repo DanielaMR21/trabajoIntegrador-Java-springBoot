@@ -4,7 +4,9 @@ import com.example.trabajo_integrador.controller.dto.DomicilioCreateDto;
 import com.example.trabajo_integrador.controller.request.RequestCreateDomicilio;
 import com.example.trabajo_integrador.entity.Domicilio;
 import com.example.trabajo_integrador.entity.Odontologo;
+import com.example.trabajo_integrador.exception.CustomBaseException;
 import com.example.trabajo_integrador.repository.DomicilioRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +36,10 @@ public class DomicilioServiceImpl implements DomicilioService{
     @Override
     @Transactional
     public DomicilioCreateDto modificar(Long id, RequestCreateDomicilio request) {
-        Domicilio domicilioDB = domicilioRepository.findById(id).orElseThrow(()->new RuntimeException("Ocurrio un error al actualizar el domicilio"));
+        Domicilio domicilioDB = domicilioRepository.findById(id).orElseThrow(() ->
+        {
+            throw new CustomBaseException("Domicilio no encontrado, por favor revise.", HttpStatus.BAD_REQUEST.value());
+        });
         domicilioDB.setCalle(request.getCalle());
         domicilioDB.setNumero(request.getNumero());
         domicilioDB.setLocalidad(request.getLocalidad());
@@ -55,7 +60,10 @@ public class DomicilioServiceImpl implements DomicilioService{
     @Override
     @Transactional(readOnly = true)
     public DomicilioCreateDto buscarPorId(Long id) {
-        Domicilio domicilioDB = domicilioRepository.findById(id).orElseThrow(()->new RuntimeException("Error al buscar un domicilio"));
+        Domicilio domicilioDB = domicilioRepository.findById(id).orElseThrow(() ->
+        {
+            throw new CustomBaseException("Domicilio no encontrado, por favor revise.", HttpStatus.BAD_REQUEST.value());
+        });
         return new DomicilioCreateDto(domicilioDB.getId(), domicilioDB.getCalle(),domicilioDB.getNumero(),domicilioDB.getLocalidad(),domicilioDB.getProvincia());
 
     }

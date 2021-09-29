@@ -16,7 +16,8 @@ import java.util.Set;
 public class Odontologo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "odontologos_sequence", sequenceName = "odontologos_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "odontologos_sequence")
     private Long id;
     private String nombre;
     private String apellido;

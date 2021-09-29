@@ -3,13 +3,14 @@ package com.example.trabajo_integrador.service;
 import com.example.trabajo_integrador.controller.dto.TurnoCreateDto;
 import com.example.trabajo_integrador.controller.request.RequestCreateTurno;
 import com.example.trabajo_integrador.entity.Turno;
+import com.example.trabajo_integrador.exception.CustomBaseException;
 import com.example.trabajo_integrador.repository.TurnoRepository;
 import com.sun.istack.NotNull;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,10 @@ public class TurnoServiceImpl implements TurnoService{
     @Override
     @Transactional
     public TurnoCreateDto actualizar(Long id, RequestCreateTurno request) {
-        Turno turnoDB = turnoRepository.findById(id).orElseThrow(()->new RuntimeException("No se pudo actualizar"));
+        Turno turnoDB = turnoRepository.findById(id).orElseThrow(() ->
+        {
+            throw new CustomBaseException("Turno no encontrado, por favor revise.", HttpStatus.BAD_REQUEST.value());
+        });
        // turnoDB.setFecha(request.getFecha());
         turnoDB.setFecha(request.getFecha());
         turnoDB.setPaciente(request.getPaciente());
@@ -48,7 +52,10 @@ public class TurnoServiceImpl implements TurnoService{
     @Override
     @Transactional(readOnly = true)
     public TurnoCreateDto buscarPorId(Long id) {
-        Turno turnoDB = turnoRepository.findById(id).orElseThrow(()->new RuntimeException("No se pudo encontrar"));
+        Turno turnoDB = turnoRepository.findById(id).orElseThrow(() ->
+        {
+            throw new CustomBaseException("Turno no encontrado, por favor revise.", HttpStatus.BAD_REQUEST.value());
+        });
         return new TurnoCreateDto(turnoDB.getId(), turnoDB.getFecha(),turnoDB.getHora() ,turnoDB.getPaciente(),turnoDB.getOdontologo());
     }
 
