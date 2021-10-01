@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,5 +63,12 @@ public class OdontologoServiceImpl implements OdontologoService{
         return odontologoRepository.findAll().stream()
                 .map(odontologo -> new OdontologoCreateDto(odontologo.getId(), odontologo.getNombre(), odontologo.getApellido(), odontologo.getMatricula()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Set<OdontologoCreateDto> findByNombre(String nombre) {
+        return odontologoRepository.findByNombre(nombre).stream()
+                .map(odontologo -> new OdontologoCreateDto(odontologo.getId(), odontologo.getNombre(), odontologo.getApellido(), odontologo.getMatricula()))
+                .collect(Collectors.toSet());
     }
 }

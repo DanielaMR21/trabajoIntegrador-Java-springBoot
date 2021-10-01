@@ -14,9 +14,11 @@ function editarOdontologo(){
             })
         }
 
-         fetch(('/odontologos'), settings)
+       const id= document.querySelector("#id-odontologo").value;
+         fetch(('/odontologos/'+id), settings)
          .then(response => {
             console.log(response.status);
+            console.log(id)
             mostrarTodos();
          })
     })

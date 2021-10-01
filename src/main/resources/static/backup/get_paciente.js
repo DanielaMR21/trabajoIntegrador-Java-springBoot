@@ -19,19 +19,24 @@ async function mostrarTodos(){
                 let pacienteHtml = "";
 
                 for (const paciente of pacientes) {
-                    pacienteHtml += '<tr id="pacienteId' + paciente.id + '">' +
+                    console.log(paciente);
+
+                  pacienteHtml += '<tr id="pacienteId' + paciente.id + '">' +
                       '<td>' + paciente.id + '</td>' +
                       '<td class="td_first_name">' + paciente.nombre.toUpperCase() + '</td>' +
-                      '<td class="td_last_name">' + paciente.apellido.toUpperCase() + '</td>' +
+                      '<td class="td_last_name">' + paciente.apellido + '</td>' +
                       '<td class="td_dni">' + paciente.dni + '</td>' +
                       '<td class=\"td_fechaIngreso\">' + paciente.fechaDeAlta + '</td>' +
-                      '<td class="td_id_domicilio">' + paciente.domicilio.calle + ", " + paciente.domicilio.numero + ". " + paciente.domicilio.localidad + ". " + paciente.domicilio.provincia +'</td>' +
+                      '<td class="td_id_domicilio">' + paciente.domicilio.id + ", "+ paciente.domicilio.calle + ", " + paciente.domicilio.numero + ". " + paciente.domicilio.localidad + ". " + paciente.domicilio.provincia +'</td>' +
                       '<td>' +
+                        '<a type="button" class="edit" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-edit" id="update_' + paciente.id + '"></i></a>' +
+                        '<a type="button" class="close delete" aria-label="Close"><i class="fas fa-trash" id="delete_' + paciente.id + '"></i></a>' +
                       '</td>' +
                     '</tr>';
                 }
                 document.querySelector('#pacienteTable tbody').innerHTML = pacienteHtml;
                 mostrarPorId();
+                borrarPaciente();
             })
             .catch(function (error) {
                 console.log(error);

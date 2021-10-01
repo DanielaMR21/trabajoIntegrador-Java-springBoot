@@ -16,6 +16,10 @@ window.addEventListener("load", function(){
                         fechaDeAlta:document.querySelector("#fechaAlta").value,
                         domicilio: {
                             id:document.querySelector("#id-domicilio").value
+                            // calle: document.querySelector("#calle").value,
+                            // numero: document.querySelector("#numero").value,
+                            // localidad: document.querySelector("#localidad").value,
+                            // provincia: document.querySelector("#provincia").value,
                         }
                     })
                 }
@@ -51,6 +55,9 @@ window.addEventListener("load", function(){
                 document.querySelector("#dni").value = "",
                 document.querySelector("#fechaAlta").value,
                 document.querySelector("#id-domicilio").value = "";
+                // document.querySelector("#numero").value = "";
+                // document.querySelector("#localidad").value = "";
+                // document.querySelector("#provincia").value = "";
             }
     }
 });

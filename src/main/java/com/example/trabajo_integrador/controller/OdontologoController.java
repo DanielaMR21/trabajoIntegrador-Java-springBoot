@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/odontologos")
@@ -40,5 +41,11 @@ public class OdontologoController {
     @ResponseStatus(HttpStatus.OK)
     public OdontologoCreateDto buscarPorId(@PathVariable Long id){
         return odontologoService.buscarPorId(id);
+    }
+
+    @GetMapping("nombre/{nombre}")
+    @ResponseStatus(HttpStatus.OK)
+    public Set<OdontologoCreateDto> findByNombre(@PathVariable String nombre) {
+        return odontologoService.findByNombre(nombre);
     }
 }

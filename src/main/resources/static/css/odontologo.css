@@ -175,10 +175,6 @@ tbody {
 }
 
 
-
-
-
-
 /**TODO-----------------------------ALTA ODONTOLOGOS----------------------------**/
 
 
@@ -189,4 +185,14 @@ tbody {
     margin-top: 100px;
     
 
+}
+
+/**TODO---------------------------PACIENTES------------------------------------- **/
+.nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+.nav-alta{
+    margin-top: 20px;
 }
