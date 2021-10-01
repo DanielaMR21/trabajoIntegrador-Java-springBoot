@@ -12,7 +12,13 @@ public class ExcetionGlobalHandler {
     private static final Logger logger = Logger.getLogger(ExcetionGlobalHandler.class);
 
     @ExceptionHandler(CustomBaseException.class)
-    public ResponseEntity<CustomBaseException> validationErrors(CustomBaseException exception) {
+    public ResponseEntity<CustomBaseException> validacionErrores(CustomBaseException exception) {
+        logger.error(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception);
+    }
+
+    @ExceptionHandler(CustomBindingException.class)
+    public ResponseEntity<CustomBindingException> validacionErrores(CustomBindingException exception){
         logger.error(exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception);
     }

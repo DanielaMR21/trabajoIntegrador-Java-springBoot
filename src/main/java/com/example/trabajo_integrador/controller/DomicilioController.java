@@ -3,12 +3,17 @@ package com.example.trabajo_integrador.controller;
 import com.example.trabajo_integrador.controller.dto.DomicilioCreateDto;
 import com.example.trabajo_integrador.controller.request.RequestCreateDomicilio;
 import com.example.trabajo_integrador.entity.Domicilio;
+import com.example.trabajo_integrador.exception.CustomBindingException;
 import com.example.trabajo_integrador.service.DomicilioService;
+import com.example.trabajo_integrador.utils.Utils;
+import jdk.jshell.execution.Util;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.PushBuilder;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,7 +29,10 @@ public class DomicilioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public DomicilioCreateDto guardarDomicilio(@RequestBody RequestCreateDomicilio request) {
+    public DomicilioCreateDto guardarDomicilio(@Valid @RequestBody RequestCreateDomicilio request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+          // throw new CustomBindingException("Errores encontrados, por favor revise e intente de nuevo",Utils.listaErrores(bindingResult), HttpStatus.BAD_REQUEST.value());
+        }
         return domicilioService.registrar(request);
     }
 

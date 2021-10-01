@@ -63,7 +63,7 @@ public class PacienteServiceImpl implements PacienteService{
     @Transactional(readOnly = true)
     public List<PacienteCreateDto> listar() {
         return pacienteRepository.findAll().stream()
-                .map(paciente -> new PacienteCreateDto(paciente.getId(), paciente.getNombre(),paciente.getApellido(),paciente.getApellido(),paciente.getDomicilio(),paciente.getFechaDeAlta()))
+                .map(paciente -> new PacienteCreateDto(paciente.getId(), paciente.getNombre(),paciente.getApellido(),paciente.getDni(),paciente.getDomicilio(),paciente.getFechaDeAlta()))
                 .collect(Collectors.toList());
     }
 }
